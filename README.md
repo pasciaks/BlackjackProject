@@ -19,18 +19,13 @@
 	- Commit early, commit often, and push!
 	- Format code, keep it separated (Indented).
 	
-#### How to run this program : This is a .java source code, command line project.  
-
-You could open the project in an IDE and execute the main method using the IDE tools.
-
-You can compile the project (.java) file on the command line, and then execute the compiled code.
-
-The compilation and execution in the command line is subject to the proper working directory and installed JAVA Compiler and specific platform.
-
-
 #### More Lessons Learned
 	- one
 	- two
 	- three
+	
+#### Here's a partial starting UML that helps demonstrate the start of the project
+
+![Black Jack UML](partial-uml.png)
 	
 	
