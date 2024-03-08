@@ -5,8 +5,7 @@
 - This is the 4th week homework assignment for Skill Distillery, Full Stack Development.
 
 
-- Users will input and rate a list of food trucks, then view the average rating and the highest-rated truck.
-
+- Use classes to create a working command line blackjack game.
 
 #### Technologies Used
 	- JAVA
@@ -30,3 +29,8 @@ The compilation and execution in the command line is subject to the proper worki
 
 
 #### More Lessons Learned
+	- one
+	- two
+	- three
+	
+	
