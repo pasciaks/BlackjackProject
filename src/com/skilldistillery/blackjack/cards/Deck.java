@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Deck {
 
+	private static final int DESIRED_CARDS_REMAINING = 1;
+
 	List<Card> cards;
 
 	public Deck() {
@@ -23,7 +25,6 @@ public class Deck {
 	}
 
 	public int checkDeckSize() {
-		System.out.println(this.cards.size());
 		return this.cards.size();
 	}
 
@@ -31,25 +32,40 @@ public class Deck {
 		Collections.shuffle(this.cards);
 	}
 
-	public Card dealCard() {
-		return this.cards.remove(0);
+	// Future plan to load an ordered deck for testing
+	public void stackTheDeck(String fileName) {
+		this.cards = new ArrayList<>();
+
+		this.cards.add(new Card(Rank.TEN, Suit.CLUBS));
+		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
+		this.cards.add(new Card(Rank.TEN, Suit.CLUBS));
+		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
+		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
+
+		// for (Suit suit : Suit.values()) {
+		// for (Rank rank : Rank.values()) {
+		// this.cards.add(new Card(rank, suit));
+		// }
+		// }
+
+		// this.cards = createDeck();
+		// this.shuffle();
 	}
 
-	// Uses new to create and store new reference
-	public void addAsNewCard(Rank rank, Suit suit) {
-		this.cards.add(new Card(rank, suit));
-	}
-
-	// Calls the addAsNewCard method to create and store new reference
-	public void addAsNewCard(Card card) {
-		this.addAsNewCard(card.getRank(), card.getSuit());
-	}
-
-	// Calls the addAsNewCard method to create and store new reference
-	public void addDeckOfCardsAsNewCards(Deck deck) {
-		for (Card card : deck.cards) {
-			this.addAsNewCard(card);
+	// If deck is < DESIRED_CARDS_REMAINING, a new deck is added and shuffled
+	public Card dealCard(boolean isFaceUp) {
+		if (checkDeckSize() < DESIRED_CARDS_REMAINING) {
+			System.out.println("Adding cards to deck and reshuffling.");
+			for (Suit suit : Suit.values()) {
+				for (Rank rank : Rank.values()) {
+					this.cards.add(new Card(rank, suit));
+				}
+			}
+			this.shuffle();
 		}
+		Card card = this.cards.remove(0);
+		card.setFaceUp(isFaceUp);
+		return card;
 	}
 
 }

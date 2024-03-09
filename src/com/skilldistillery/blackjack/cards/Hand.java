@@ -7,10 +7,6 @@ public abstract class Hand {
 
 	protected List<Card> cardsInHand = new ArrayList<>();
 
-	public Hand() {
-		// default constructor
-	}
-
 	public void addCard(Card card) {
 		cardsInHand.add(card);
 	}
@@ -21,14 +17,17 @@ public abstract class Hand {
 
 	public abstract int getHandValue();
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Hand: ");
+	public void placeCardsFaceUp() {
 		for (Card card : cardsInHand) {
-			builder.append(card + " ");
+			card.setFaceUp(true);
 		}
-		return builder.toString();
+	}
+
+	public void showHand() {
+		for (Card card : cardsInHand) {
+			card.showCard();
+		}
+		System.out.println();
 	}
 
 }

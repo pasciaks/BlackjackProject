@@ -15,11 +15,11 @@ public class Card {
 	}
 
 	public Rank getRank() {
-		return rank;
+		return this.rank;
 	}
 
 	public Suit getSuit() {
-		return suit;
+		return this.suit;
 	}
 
 	public int getValue() {
@@ -27,7 +27,7 @@ public class Card {
 	}
 
 	public boolean isFaceUp() {
-		return isFaceUp;
+		return this.isFaceUp;
 	}
 
 	public void setFaceUp(boolean isFaceUp) {
@@ -36,15 +36,16 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return this.rank + " of " + this.suit;
+		if (this.isFaceUp) {
+			return "[" + this.rank + " of " + this.suit + "]";
+		} else {
+			return "[***]";
+		}
+
 	}
 
-	public String showCard() {
-		if (isFaceUp) {
-			return rank + " of " + suit;
-		} else {
-			return "Face Down";
-		}
+	public void showCard() {
+		System.out.print(this.toString() + " ");
 	}
 
 	@Override

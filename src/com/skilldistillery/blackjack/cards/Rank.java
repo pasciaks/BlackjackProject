@@ -15,4 +15,9 @@ public enum Rank {
 		return this.value;
 	}
 
+	@Override
+	public String toString() {
+		return this.name();
+	}
+
 }
