@@ -148,7 +148,7 @@ public class Card {
 	}
 
 	public void showCard(int index, GameTable gameTable) {
-		System.out.println(this.toString() + " ");
+		// System.out.println(this.toString() + " ");
 		gameTable.drawCardToScreen(cardSpace, 1, 1 + index * 6, bgColor, textColor,
 				this.translateRank(this.rank.toString()), this.translateSuitToColor(this.suit.toString()),
 				this.translateSuit(this.suit.toString()), this.translateIsFaceUp(this.isFaceUp));

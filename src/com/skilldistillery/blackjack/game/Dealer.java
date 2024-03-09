@@ -12,6 +12,9 @@ public class Dealer extends Player {
 
 	private Deck deck;
 
+	// If true, the deck counts will be shown
+	private boolean isDebugMode = false;
+
 	public Dealer() {
 		this.deck = new Deck();
 		this.shuffleDeck();
@@ -25,12 +28,21 @@ public class Dealer extends Player {
 		this.playerHand.placeCardsFaceUp();
 	}
 
+	public void showDeck() {
+		// Card counting for debug purposes + more!
+		if (isDebugMode) {
+			this.deck.showDeck();
+		}
+	}
+
 	public Card dealCard(boolean isFaceUp) {
 		Card card = this.deck.dealCard(isFaceUp);
-		if (isFaceUp) {
-			System.out.println(ConsoleEffect.black + "Dealer deals " + card);
-		} else {
-			System.out.println(ConsoleEffect.black + "Dealer deals a card face down");
+		if (isDebugMode) {
+			if (isFaceUp) {
+				System.out.println(ConsoleEffect.black + "Dealer deals " + card);
+			} else {
+				System.out.println(ConsoleEffect.black + "Dealer deals a card face down");
+			}
 		}
 		return card;
 	}
@@ -39,13 +51,9 @@ public class Dealer extends Player {
 		this.deck.stackTheDeck(fileName);
 	}
 
-	public boolean isAceShowing() {
-		return this.playerHand.isAceShowing();
-	}
-
 	@Override
 	public void showHand() {
-		System.out.println(ConsoleEffect.cyan + "\nDealer hand:");
+		System.out.println(ConsoleEffect.cyan + "Dealer hand:");
 		this.playerHand.showHand();
 	}
 
@@ -53,6 +61,7 @@ public class Dealer extends Player {
 	public void playTurn(Dealer dealer, Scanner keyboard) {
 
 		this.showHand();
+		dealer.showDeck(); // if dealer is in debug mode, will show deck count
 
 		System.out.println("\nThe Dealer Has " + this.playerHand.getHandValue() + " ! ");
 
@@ -63,6 +72,7 @@ public class Dealer extends Player {
 			this.addCardToHand(this.dealCard(true));
 
 			this.showHand();
+			dealer.showDeck(); // if dealer is in debug mode, will show deck count
 
 			if (this.playerHand.getHandValue() > 21) {
 				System.out.println("\nThe Dealer Has " + this.playerHand.getHandValue() + " and has busted! ");

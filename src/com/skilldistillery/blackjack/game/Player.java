@@ -23,8 +23,12 @@ public class Player {
 		return this.playerHand.getHandValue();
 	}
 
+	public boolean isAceShowing() {
+		return this.playerHand.isAceShowing();
+	}
+
 	public void showHand() {
-		System.out.println(ConsoleEffect.cyan + "\nYour hand:");
+		System.out.println(ConsoleEffect.cyan + "Player hand:");
 		this.playerHand.showHand();
 	}
 
@@ -32,17 +36,21 @@ public class Player {
 
 		while (this.playerHand.getHandValue() < 21) {
 
-			System.out.print("\nWould you like to [1][hit] or [2][stay] ? ");
+			dealer.showDeck(); // if dealer is in debug mode, will show deck count
 
-			String choice = keyboard.nextLine();
+			System.out.println("\nWould you like to [1][hit] or [2][stand] ? ");
 
-			if (choice.equals("hit") || choice.equals("1")) {
+			String choice = keyboard.nextLine().trim();
+
+			if (choice.equalsIgnoreCase("hit") || choice.equals("1")) {
 				this.addCardToHand(dealer.dealCard(true));
-			} else if (choice.equals("stay") || choice.equals("2")) {
+			} else if (choice.equalsIgnoreCase("stand") || choice.equals("2")) {
 				break;
 			} else {
-				System.out.println("\nPlease enter [1] or 'hit' or [2] or 'stay'.");
+				System.out.println("\nPlease enter [1] or 'hit' or [2] or 'stand'.");
 			}
+
+			dealer.showHand();
 
 			this.showHand();
 

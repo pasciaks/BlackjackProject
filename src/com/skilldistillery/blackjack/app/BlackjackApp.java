@@ -15,13 +15,6 @@ public class BlackjackApp {
 
 		System.out.println("Welcome to Blackjack!");
 
-		System.out.println("----------------------------------------------------------------------------");
-		System.out.println("- TODO - carefully check play logic, blackjacks and assignment instructions-");
-		System.out.println("- TODO - carefully check play logic, blackjacks and assignment instructions-");
-		System.out.println("- TODO - carefully check play logic, blackjacks and assignment instructions-");
-		System.out.println("- TODO - carefully check play logic, blackjacks and assignment instructions-");
-		System.out.println("----------------------------------------------------------------------------");
-
 		BlackjackApp app = new BlackjackApp();
 
 		app.startGame();
@@ -38,13 +31,15 @@ public class BlackjackApp {
 		// -------------------------------------------------------
 		// Possible plan to load/save a deck for testing/competing
 		// -------------------------------------------------------
-		dealer.stackDeck("testDeck.txt"); // testing purposes
+		// dealer.stackDeck("testDeck.txt"); // testing purposes
 		// -------------------------------------------------------
 
 		do {
 
 			player.clearHand();
 			dealer.clearHand();
+
+			dealer.showDeck();
 
 			// Initial deal
 
@@ -57,64 +52,69 @@ public class BlackjackApp {
 			dealer.showHand();
 			player.showHand();
 
-			boolean hasInsurance = false;
 			boolean skipPlay = false;
 
-			// -------------------------------------------------------
+			boolean playerHasBlackjack = false;
+			boolean dealerHasBlackjack = false;
+
+			boolean doesPlayerHaveInsurance = false;
+
+			// ---------------------------------------------------------------
 			// IF DEALER HAS ACE SHOWING, OFFER INSURANCE
-			// -------------------------------------------------------
+			// ---------------------------------------------------------------
 			if (dealer.isAceShowing()) {
-				System.out.print("\nWould you like to buy insurance? (y/N) ? ");
-				String wantsInsurance = keyboard.nextLine().trim();
+				// Not sure of insurance rules, so not fully implemented
+				System.out.println(ConsoleEffect.red + "Dealer has an Ace showing.\n" + ConsoleEffect.reset);
+				String wantsInsurance = askYesOrNo(
+						ConsoleEffect.yellow + "Would you like to buy insurance ? (y/n) ? " + ConsoleEffect.reset,
+						keyboard);
 				if (wantsInsurance.equalsIgnoreCase("y")) {
-					System.out.println(ConsoleEffect.red + "\nInsurance purchased." + ConsoleEffect.reset);
-					hasInsurance = true;
-					if (dealer.getHandValue() == 21) {
-						System.out.println(ConsoleEffect.red + "\nDealer has blackjack." + ConsoleEffect.reset);
-						skipPlay = true;
-					}
+					doesPlayerHaveInsurance = true;
+					System.out.println(ConsoleEffect.green + "Insurance purchased." + ConsoleEffect.reset);
 				} else {
-					if (dealer.getHandValue() == 21) {
-						System.out.println(ConsoleEffect.red + "\nDealer has blackjack." + ConsoleEffect.reset);
-						skipPlay = true;
-					}
+					System.out.println(ConsoleEffect.red + "No insurance purchased." + ConsoleEffect.reset);
 				}
 			}
-			// ------------------------------------------------------------
-			// NOT CERTAIN OF GAME INSURANCE RULES SO LEFT IT VERBOSE ABOVE
-			// ------------------------------------------------------------
+
+			// ---------------------------------------------------------------
+			// IF PLAYER HAS BLACKJACK, SKIP PLAYER'S TURN
+			// ---------------------------------------------------------------
+
+			if (dealer.getHandValue() == 21) {
+				dealerHasBlackjack = true;
+			}
+
+			if (player.getHandValue() == 21) {
+				System.out.println(ConsoleEffect.green + "\nYou have Blackjack!" + ConsoleEffect.reset);
+				skipPlay = true;
+				playerHasBlackjack = true;
+
+				if (dealerHasBlackjack) {
+					System.out.println(ConsoleEffect.red + "\nDealer also has blackjack." + ConsoleEffect.reset);
+					skipPlay = true;
+				}
+			}
 
 			if (!skipPlay) {
 
-				if (player.getHandValue() == 21) {
+				// Player's turn
 
-					System.out.println(ConsoleEffect.red + "\nBlackjack! You win!" + ConsoleEffect.reset);
+				player.playTurn(dealer, keyboard);
 
-					if (dealer.getHandValue() == 21) {
-						System.out.println(
-								ConsoleEffect.red + "\nDealer also has blackjack. Push!" + ConsoleEffect.reset);
-					}
+				dealer.placeCardsFaceUp();
 
-				} else {
-
-					player.playTurn(dealer, keyboard);
-
-					dealer.placeCardsFaceUp();
-
-					if (player.getHandValue() <= 21) {
-						dealer.playTurn(dealer, keyboard);
-					}
+				if (player.getHandValue() <= 21) {
+					dealer.playTurn(dealer, keyboard);
 				}
-
 			}
 
 			dealer.placeCardsFaceUp();
 
-			showGameResults();
+			showGameResults(playerHasBlackjack, dealerHasBlackjack, doesPlayerHaveInsurance);
 
-			System.out.print("\nWould you like to play again? (y/N) ? ");
+			System.out.println(ConsoleEffect.reset);
 
-			wantsToContinuePlaying = keyboard.nextLine().trim();
+			wantsToContinuePlaying = askYesOrNo("Would you like to play again ? (y/n) ? ", keyboard);
 
 		} while (wantsToContinuePlaying.equalsIgnoreCase("y"));
 
@@ -124,7 +124,20 @@ public class BlackjackApp {
 
 	}
 
-	private void showGameResults() {
+	private String askYesOrNo(String question, Scanner keyboard) {
+		String choice = "";
+		do {
+			System.out.println(question);
+			choice = keyboard.nextLine().trim();
+			if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("n")) {
+				break;
+			}
+		} while (true);
+		return choice;
+	}
+
+	private void showGameResults(boolean playerhasBlackjack, boolean dealerHasBlackjack,
+			boolean doesPlayerHaveInsurance) {
 
 		System.out.println("\nGame Results\n");
 
@@ -134,17 +147,41 @@ public class BlackjackApp {
 		player.showHand();
 		System.out.println("Player's hand value: " + player.getHandValue() + "\n");
 
-		if (player.getHandValue() > 21) {
-			System.out.println("\nYou busted!\n");
-		} else if (dealer.getHandValue() > 21) {
-			System.out.println("\nDealer busted!\n" + "\nYou win!");
-		} else if (player.getHandValue() > dealer.getHandValue()) {
-			System.out.println("\nPlayer wins!\n");
-		} else if (player.getHandValue() < dealer.getHandValue()) {
-			System.out.println("\nDealer wins!\n");
-		} else {
-			System.out.println("\nPush! No winner.\n");
+		// The following logic was left verbose for clarity
+
+		if (playerhasBlackjack && dealerHasBlackjack) {
+			System.out.println(ConsoleEffect.yellow + "\nDouble Black Jack!\n");
+			return;
 		}
+
+		if (playerhasBlackjack) {
+			System.out.println(ConsoleEffect.green + "\nPlayer has Black Jack!\n");
+			return;
+		}
+
+		if (dealerHasBlackjack) {
+			System.out.println(ConsoleEffect.red + "\nDealer has Black Jack!\n");
+			if (doesPlayerHaveInsurance) {
+				System.out.println(ConsoleEffect.green + "Good thing you had insurance!\n");
+			} else {
+				System.out.println(ConsoleEffect.red + "Too bad you didn't buy insurance!\n");
+			}
+			return;
+		}
+
+		if (player.getHandValue() > 21) {
+			System.out.println(ConsoleEffect.red + "\nPlayer busted! Dealer Wins.\n" + ConsoleEffect.reset);
+		} else if (dealer.getHandValue() > 21) {
+			System.out.println(ConsoleEffect.green + "\nDealer busted! Player Wins.\n" + ConsoleEffect.reset);
+		} else if (player.getHandValue() > dealer.getHandValue()) {
+			System.out.println(ConsoleEffect.green + "\nPlayer wins!\n");
+		} else if (player.getHandValue() < dealer.getHandValue()) {
+			System.out.println(ConsoleEffect.red + "\nDealer wins!\n");
+		} else {
+			System.out.println(ConsoleEffect.yellow + "\nPush! No winner.\n");
+		}
+
+		return;
 	}
 
 }

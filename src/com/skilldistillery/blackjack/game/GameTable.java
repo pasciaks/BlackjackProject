@@ -3,7 +3,7 @@ package com.skilldistillery.blackjack.game;
 public class GameTable {
 
 	// This code was worked on during this 4th week.
-	// It was dabbled with off/on before the HW was assigned.
+	// It was completed before the HW was assigned.
 
 	// Suits = "♠ ♦ ♣ ❤"
 
@@ -19,8 +19,9 @@ public class GameTable {
 	// │ 02│
 	// └───┘
 
-	private int rows = 7;
+	private int sleepTime = 250;
 	private int columns = 120;
+	private int rows = 7;
 
 	private String screenBgColor = ConsoleEffect.blackBg;
 	private String screenTextColor = ConsoleEffect.white;
@@ -28,21 +29,13 @@ public class GameTable {
 
 	String[][] screenXY = new String[rows][columns];
 
-	private void sleepFor(int milliseconds) {
-		try {
-			Thread.sleep(milliseconds);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void clearScreen() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				setScreen(i, j, screenBgColor + screenTextColor + " " + reset);
 			}
 		}
-		sleepFor(500);
+		sleepFor(sleepTime);
 	}
 
 	public String[][] drawCardToScreen(String[][] card, int row, int column, String bgColor, String textColor,
@@ -55,6 +48,18 @@ public class GameTable {
 		}
 		placeBoxOnScreen(row, column, card);
 		return card;
+	}
+
+	public void drawScreen() {
+		for (int i = 0; i < rows; i++) {
+			String line = "";
+			for (int j = 0; j < columns; j++) {
+				line += screenXY[i][j];
+			}
+			System.out.println(line);
+		}
+		System.out.println(ConsoleEffect.reset);
+		sleepFor(sleepTime);
 	}
 
 	private void drawSuitToCard(String[][] card, String suit, String textColor, String backColor) {
@@ -118,19 +123,6 @@ public class GameTable {
 		return card;
 	}
 
-	public void drawScreen() {
-		sleepFor(250);
-		for (int i = 0; i < rows; i++) {
-			String line = "";
-			for (int j = 0; j < columns; j++) {
-				line += screenXY[i][j];
-			}
-			System.out.println(line);
-		}
-		System.out.println(ConsoleEffect.reset);
-		sleepFor(250);
-	}
-
 	private void placeBoxOnScreen(int row, int column, String[][] box) {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -141,6 +133,14 @@ public class GameTable {
 
 	private void setScreen(int row, int column, String value) {
 		screenXY[row][column] = value;
+	}
+
+	private void sleepFor(int milliseconds) {
+		try {
+			Thread.sleep(milliseconds);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

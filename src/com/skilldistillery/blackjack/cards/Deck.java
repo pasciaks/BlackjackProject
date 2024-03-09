@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.skilldistillery.blackjack.game.ConsoleEffect;
+
 public class Deck {
 
 	private static final int DESIRED_CARDS_REMAINING = 1;
@@ -73,6 +75,38 @@ public class Deck {
 		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
 		this.cards.add(new Card(Rank.ACE, Suit.SPADES));
 		this.cards.add(new Card(Rank.TEN, Suit.HEARTS));
+	}
+
+	// Verbose implementation of card counting
+	// Consider re factoring with a map or other data structure
+	public void showDeck() {
+		String[] cardFace = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10,J,Q,K", "A" };
+		int[] cardCount = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		for (Card card : this.cards) {
+			int valueIndex = card.getValue();
+			cardCount[valueIndex] = cardCount[valueIndex] + 1;
+		}
+		for (int i = 0; i < cardFace.length; i++) {
+			if (cardCount[i] > 0) {
+				if (i < 10) {
+					System.out.printf(ConsoleEffect.black + " %3s ", cardFace[i]);
+				} else {
+					System.out.printf(ConsoleEffect.black + " %8s ", cardFace[i]);
+				}
+			}
+		}
+		System.out.println(ConsoleEffect.reset);
+		for (int i = 0; i < cardFace.length; i++) {
+			if (cardCount[i] > 0) {
+				if (i < 10) {
+					System.out.printf(ConsoleEffect.black + " %3s ", cardCount[i]);
+				} else {
+					System.out.printf(ConsoleEffect.black + " %8s ", cardCount[i]);
+				}
+
+			}
+		}
+		System.out.println(ConsoleEffect.reset);
 	}
 
 	// If deck is < DESIRED_CARDS_REMAINING, a new deck is added
