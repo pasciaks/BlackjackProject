@@ -13,6 +13,8 @@ public class Card {
 	private Rank rank;
 	private Suit suit;
 
+	private String[][] cardSpace = new String[5][5];
+
 	private boolean isFaceUp = false;
 
 	public Card(Rank rank, Suit suit) {
@@ -50,10 +52,8 @@ public class Card {
 
 	}
 
-	// ConsoleEffect.red
-
 	private String translateSuitToColor(String oldSuit) {
-		String newColor = "";
+		String newColor = "" + ConsoleEffect.blue;
 		switch (oldSuit) {
 		case "Spades":
 		case "Clubs":
@@ -63,9 +63,7 @@ public class Card {
 		case "Hearts":
 			newColor = ConsoleEffect.red;
 			break;
-
 		default:
-			newColor = ConsoleEffect.blue;
 			break;
 		}
 		return newColor;
@@ -87,10 +85,8 @@ public class Card {
 			newSuit = "❤";
 			break;
 		default:
-			newSuit = "" + oldSuit;
 			break;
 		}
-
 		return newSuit;
 	}
 
@@ -98,7 +94,7 @@ public class Card {
 		return isFaceUp ? 1 : 0;
 	}
 
-	// This is 'verbose' and could be re factored in new iteration
+	// This is verbose and could be re factored in new iteration
 	private String translateRank(String oldRank) {
 
 		// TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9),
@@ -145,7 +141,6 @@ public class Card {
 			newRank = "A";
 			break;
 		default:
-			newRank = "" + oldRank;
 			break;
 		}
 
@@ -153,11 +148,10 @@ public class Card {
 	}
 
 	public void showCard(int index, GameTable gameTable) {
-		// System.out.print(this.toString() + " ");
-		gameTable.drawCardToScreen(new String[5][5], 1, index * 7, bgColor, textColor,
+		System.out.println(this.toString() + " ");
+		gameTable.drawCardToScreen(cardSpace, 1, 1 + index * 6, bgColor, textColor,
 				this.translateRank(this.rank.toString()), this.translateSuitToColor(this.suit.toString()),
 				this.translateSuit(this.suit.toString()), this.translateIsFaceUp(this.isFaceUp));
-
 	}
 
 	@Override

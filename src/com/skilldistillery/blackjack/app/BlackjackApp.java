@@ -17,6 +17,9 @@ public class BlackjackApp {
 
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("- TODO - carefully check play logic, blackjacks and assignment instructions-");
+		System.out.println("- TODO - carefully check play logic, blackjacks and assignment instructions-");
+		System.out.println("- TODO - carefully check play logic, blackjacks and assignment instructions-");
+		System.out.println("- TODO - carefully check play logic, blackjacks and assignment instructions-");
 		System.out.println("----------------------------------------------------------------------------");
 
 		BlackjackApp app = new BlackjackApp();

@@ -32,7 +32,8 @@ public class Deck {
 		Collections.shuffle(this.cards);
 	}
 
-	// Future plan to load an ordered deck for testing
+	// Stack the deck for testing with predetermined cards
+	// Possible future plan to load an ordered deck from a file
 	public void stackTheDeck(String fileName) {
 		this.cards = new ArrayList<>();
 		// Dealer gets black jack
@@ -40,18 +41,17 @@ public class Deck {
 		this.cards.add(new Card(Rank.KING, Suit.CLUBS));
 		this.cards.add(new Card(Rank.NINE, Suit.DIAMONDS));
 		this.cards.add(new Card(Rank.ACE, Suit.HEARTS));
-
 		// You get black jack
 		this.cards.add(new Card(Rank.ACE, Suit.SPADES));
 		this.cards.add(new Card(Rank.ACE, Suit.HEARTS));
 		this.cards.add(new Card(Rank.KING, Suit.CLUBS));
 		this.cards.add(new Card(Rank.NINE, Suit.DIAMONDS));
-		// double black jack
+		// You and the dealer get black jack
 		this.cards.add(new Card(Rank.ACE, Suit.SPADES));
 		this.cards.add(new Card(Rank.ACE, Suit.HEARTS));
 		this.cards.add(new Card(Rank.KING, Suit.CLUBS));
 		this.cards.add(new Card(Rank.JACK, Suit.DIAMONDS));
-		// nice example game
+		// example game
 		this.cards.add(new Card(Rank.SIX, Suit.CLUBS));
 		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
 		this.cards.add(new Card(Rank.FOUR, Suit.HEARTS));
@@ -65,7 +65,7 @@ public class Deck {
 		this.cards.add(new Card(Rank.FIVE, Suit.CLUBS));
 		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
 		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
-		// another nice example game
+		// example game
 		this.cards.add(new Card(Rank.EIGHT, Suit.DIAMONDS));
 		this.cards.add(new Card(Rank.JACK, Suit.CLUBS));
 		this.cards.add(new Card(Rank.QUEEN, Suit.DIAMONDS));
@@ -73,7 +73,6 @@ public class Deck {
 		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
 		this.cards.add(new Card(Rank.ACE, Suit.SPADES));
 		this.cards.add(new Card(Rank.TEN, Suit.HEARTS));
-
 	}
 
 	// If deck is < DESIRED_CARDS_REMAINING, a new deck is added
