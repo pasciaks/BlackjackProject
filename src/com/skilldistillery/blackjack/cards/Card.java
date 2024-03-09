@@ -7,15 +7,15 @@ import com.skilldistillery.blackjack.game.GameTable;
 
 public class Card {
 
-	private String bgColor = ConsoleEffect.whiteBg;
-	private String textColor = ConsoleEffect.blue;
-
 	private Rank rank;
 	private Suit suit;
 
-	private String[][] cardSpace = new String[5][5];
-
 	private boolean isFaceUp = false;
+
+	// The following are for enhanced display of cards
+	private String[][] cardSpace = new String[5][5];
+	private String bgColor = ConsoleEffect.whiteBg;
+	private String textColor = ConsoleEffect.blue;
 
 	public Card(Rank rank, Suit suit) {
 		this.rank = rank;
@@ -69,7 +69,7 @@ public class Card {
 		return newColor;
 	}
 
-	private String translateSuit(String oldSuit) {
+	private String translateSuitToSymbol(String oldSuit) {
 		String newSuit = "" + oldSuit;
 		switch (oldSuit) {
 		case "Spades":
@@ -90,7 +90,7 @@ public class Card {
 		return newSuit;
 	}
 
-	private int translateIsFaceUp(boolean isFaceUp) {
+	private int translateIsFaceUpToCardType(boolean isFaceUp) {
 		return isFaceUp ? 1 : 0;
 	}
 
@@ -148,10 +148,13 @@ public class Card {
 	}
 
 	public void showCard(int index, GameTable gameTable) {
-		// System.out.println(this.toString() + " ");
+
 		gameTable.drawCardToScreen(cardSpace, 1, 1 + index * 6, bgColor, textColor,
 				this.translateRank(this.rank.toString()), this.translateSuitToColor(this.suit.toString()),
-				this.translateSuit(this.suit.toString()), this.translateIsFaceUp(this.isFaceUp));
+				this.translateSuitToSymbol(this.suit.toString()), this.translateIsFaceUpToCardType(this.isFaceUp));
+
+		// System.out.println(this.toString() + " ");
+
 	}
 
 	@Override

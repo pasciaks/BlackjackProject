@@ -43,8 +43,10 @@ public class Player {
 			String choice = keyboard.nextLine().trim();
 
 			if (choice.equalsIgnoreCase("hit") || choice.equals("1")) {
+				System.out.println(ConsoleEffect.yellow + "\nYou chose to hit.\n" + ConsoleEffect.reset);
 				this.addCardToHand(dealer.dealCard(true));
 			} else if (choice.equalsIgnoreCase("stand") || choice.equals("2")) {
+				System.out.println(ConsoleEffect.yellow + "\nYou chose to stand.\n" + ConsoleEffect.reset);
 				break;
 			} else {
 				System.out.println("\nPlease enter [1] or 'hit' or [2] or 'stand'.");

@@ -43,7 +43,10 @@ public class Dealer extends Player {
 			} else {
 				System.out.println(ConsoleEffect.black + "Dealer deals a card face down");
 			}
+			System.out.println(ConsoleEffect.black + " " + this.deck.checkDeckSize() + " cards left in the deck."
+					+ ConsoleEffect.reset);
 		}
+
 		return card;
 	}
 

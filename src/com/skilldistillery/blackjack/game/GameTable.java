@@ -19,7 +19,7 @@ public class GameTable {
 	// │ 02│
 	// └───┘
 
-	private int sleepTime = 250;
+	private int sleepTime = 500;
 	private int columns = 120;
 	private int rows = 7;
 
