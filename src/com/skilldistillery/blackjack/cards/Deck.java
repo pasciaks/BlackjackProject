@@ -35,21 +35,29 @@ public class Deck {
 	// Future plan to load an ordered deck for testing
 	public void stackTheDeck(String fileName) {
 		this.cards = new ArrayList<>();
-
-		this.cards.add(new Card(Rank.TEN, Suit.CLUBS));
+		// nice example game
+		this.cards.add(new Card(Rank.SIX, Suit.CLUBS));
 		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
-		this.cards.add(new Card(Rank.TEN, Suit.CLUBS));
+		this.cards.add(new Card(Rank.FOUR, Suit.HEARTS));
+		this.cards.add(new Card(Rank.THREE, Suit.CLUBS));
+		this.cards.add(new Card(Rank.EIGHT, Suit.CLUBS));
+		this.cards.add(new Card(Rank.KING, Suit.DIAMONDS));
+		this.cards.add(new Card(Rank.TEN, Suit.DIAMONDS));
+		this.cards.add(new Card(Rank.EIGHT, Suit.DIAMONDS));
+		this.cards.add(new Card(Rank.JACK, Suit.CLUBS));
+		this.cards.add(new Card(Rank.QUEEN, Suit.DIAMONDS));
+		this.cards.add(new Card(Rank.FIVE, Suit.CLUBS));
 		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
 		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
+		// another nice example game
+		this.cards.add(new Card(Rank.EIGHT, Suit.DIAMONDS));
+		this.cards.add(new Card(Rank.JACK, Suit.CLUBS));
+		this.cards.add(new Card(Rank.QUEEN, Suit.DIAMONDS));
+		this.cards.add(new Card(Rank.FIVE, Suit.CLUBS));
+		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
+		this.cards.add(new Card(Rank.ACE, Suit.SPADES));
+		this.cards.add(new Card(Rank.TEN, Suit.HEARTS));
 
-		// for (Suit suit : Suit.values()) {
-		// for (Rank rank : Rank.values()) {
-		// this.cards.add(new Card(rank, suit));
-		// }
-		// }
-
-		// this.cards = createDeck();
-		// this.shuffle();
 	}
 
 	// If deck is < DESIRED_CARDS_REMAINING, a new deck is added and shuffled

@@ -28,9 +28,9 @@ public class Dealer extends Player {
 	public Card dealCard(boolean isFaceUp) {
 		Card card = this.deck.dealCard(isFaceUp);
 		if (isFaceUp) {
-			// System.out.println("\nDealer deals " + card);
+			System.out.println(ConsoleEffect.black + "Dealer deals " + card);
 		} else {
-			// System.out.println("\nDealer deals a card face down");
+			System.out.println(ConsoleEffect.black + "Dealer deals a card face down");
 		}
 		return card;
 	}
@@ -42,8 +42,9 @@ public class Dealer extends Player {
 	@Override
 	public void playTurn(Dealer dealer, Scanner keyboard) {
 
-		System.out.println("\n\nDealer's hand\n");
 		this.showHand();
+
+		System.out.println("\nThe Dealer Has " + this.playerHand.getHandValue() + " ! ");
 
 		while (this.playerHand.getHandValue() < 17) {
 
@@ -51,8 +52,14 @@ public class Dealer extends Player {
 
 			this.addCardToHand(this.dealCard(true));
 
-			System.out.println("\n\nDealer's hand: ");
 			this.showHand();
+
+			if (this.playerHand.getHandValue() > 21) {
+				System.out.println("\nThe Dealer Has " + this.playerHand.getHandValue() + " and has busted! ");
+				break;
+			}
+
+			System.out.println("\nThe Dealer Has " + this.playerHand.getHandValue() + " ! ");
 
 		}
 

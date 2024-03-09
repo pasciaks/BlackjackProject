@@ -24,41 +24,53 @@ public class BlackjackApp {
 
 		dealer.shuffleDeck();
 
+		String wantsToContinuePlaying = "y";
+
 		dealer.stackDeck("testDeck.txt"); // testing purposes
 
-		player.clearHand();
-		dealer.clearHand();
+		do {
 
-		// initial deal
+			player.clearHand();
+			dealer.clearHand();
 
-		player.addCardToHand(dealer.dealCard(true)); // face up
-		dealer.addCardToHand(dealer.dealCard(false)); // face down
+			// initial deal
 
-		player.addCardToHand(dealer.dealCard(true)); // face up
-		dealer.addCardToHand(dealer.dealCard(true)); // face up
+			player.addCardToHand(dealer.dealCard(true)); // face up
+			dealer.addCardToHand(dealer.dealCard(false)); // face down
 
-		dealer.showHand();
-		player.showHand();
+			player.addCardToHand(dealer.dealCard(true)); // face up
+			dealer.addCardToHand(dealer.dealCard(true)); // face up
 
-		// check for player blackjack
+			dealer.showHand();
+			player.showHand();
 
-		if (player.getHandValue() == 21) {
+			// check for player blackjack
 
-			System.out.println("Blackjack! You win!");
+			if (player.getHandValue() == 21) {
 
-		} else {
+				System.out.println("Blackjack! You win!");
 
-			player.playTurn(dealer, keyboard);
+			} else {
 
-			dealer.placeCardsFaceUp();
+				player.playTurn(dealer, keyboard);
 
-			// if player did not bust, dealer plays turn
-			if (player.getHandValue() <= 21) {
-				dealer.playTurn(dealer, keyboard);
+				dealer.placeCardsFaceUp();
+
+				// if player did not bust, dealer plays turn
+				if (player.getHandValue() <= 21) {
+					dealer.playTurn(dealer, keyboard);
+				}
 			}
-		}
 
-		showGameResults();
+			showGameResults();
+
+			System.out.print("\nWould you like to play again? (y/N) ? ");
+
+			wantsToContinuePlaying = keyboard.nextLine().trim();
+
+		} while (wantsToContinuePlaying.equalsIgnoreCase("y"));
+
+		System.out.println("\n\nGoodbye!\n\n");
 
 		keyboard.close();
 
@@ -66,28 +78,24 @@ public class BlackjackApp {
 
 	private void showGameResults() {
 
-		System.out.println("\n\nGame Results\n");
-
-		System.out.println("Dealer's hand: ");
+		System.out.println("\nGame Results\n");
 
 		dealer.showHand();
 		System.out.println("Dealer's hand value: " + dealer.getHandValue() + "\n");
-
-		System.out.println("Player's hand: ");
 
 		player.showHand();
 		System.out.println("Player's hand value: " + player.getHandValue() + "\n");
 
 		if (player.getHandValue() > 21) {
-			System.out.println("You busted!");
+			System.out.println("\nYou busted!\n");
 		} else if (dealer.getHandValue() > 21) {
-			System.out.println("Dealer busted!" + "\nYou win!");
+			System.out.println("\nDealer busted!\n" + "\nYou win!");
 		} else if (player.getHandValue() > dealer.getHandValue()) {
-			System.out.println("Player wins!");
+			System.out.println("\nPlayer wins!\n");
 		} else if (player.getHandValue() < dealer.getHandValue()) {
-			System.out.println("Dealer wins!");
+			System.out.println("\nDealer wins!\n");
 		} else {
-			System.out.println("Push!");
+			System.out.println("\nPush! No winner.\n");
 		}
 	}
 

@@ -3,9 +3,13 @@ package com.skilldistillery.blackjack.cards;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.skilldistillery.blackjack.game.GameTable;
+
 public abstract class Hand {
 
 	protected List<Card> cardsInHand = new ArrayList<>();
+
+	private GameTable gameTable = new GameTable();
 
 	public void addCard(Card card) {
 		cardsInHand.add(card);
@@ -24,10 +28,12 @@ public abstract class Hand {
 	}
 
 	public void showHand() {
+		this.gameTable.clearScreen();
+		int index = 0;
 		for (Card card : cardsInHand) {
-			card.showCard();
+			card.showCard(index++, gameTable);
 		}
-		System.out.println();
+		this.gameTable.drawScreen();
 	}
 
 }

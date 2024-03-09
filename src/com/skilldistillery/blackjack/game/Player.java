@@ -43,7 +43,6 @@ public class Player {
 				System.out.println("\nPlease enter 'hit' or 'stay'.");
 			}
 
-			System.out.println("\nYour hand\n");
 			this.showHand();
 
 			if (this.playerHand.getHandValue() > 21) {

@@ -15,9 +15,9 @@ public class BlackjackHand extends Hand {
 			int acesUsedAsOnes = 0;
 			while (totalValue > 21 && acesUsedAsOnes < totalAces()) {
 				totalValue -= 10;
+				acesUsedAsOnes++;
 			}
 		}
-		// System.out.println("\nTotal value of hand: " + totalValue);
 		return totalValue;
 	}
 
@@ -29,16 +29,6 @@ public class BlackjackHand extends Hand {
 			}
 		}
 		return numberOfAces;
-	}
-
-	public boolean isHard() {
-		// A hand is hard if it has no aces, or if it has aces, they are all valued at 1
-		return false;
-	}
-
-	public boolean isSoft() {
-		// A hand is soft if it has aces, and at least one ace is valued at 11
-		return false;
 	}
 
 }

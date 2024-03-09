@@ -19,12 +19,32 @@
 	- Commit early, commit often, and push!
 	- Format code, keep it separated (Indented).
 	
-#### More Lessons Learned
-	- one
-	- two
-	- three
+
+#### Display enhancement for user experience.
+
+-Rather than just displaying text versions of cards, I implemented a very involved console window (System.out) class that can be used to generate text in row,column positions that will show text with background and foreground colors. This enabled a nice display of the cards for a surprising console application user experience.
+
+![Example Play](game1.png)
+![Example Play](game2.png)
+
+#### Sleeper thread for user Interaction and Simulation experience.
+
+-Implementing a sleeper thread to simulate gameplay was beneficial to actually simulate gameplay.
+
 	
-#### Here's a partial starting UML that helps demonstrate the start of the project
+```JAVA
+
+	private void sleepFor(int milliseconds) {
+		try {
+			Thread.sleep(milliseconds);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+```
+	
+# Partial starting UML that helps demonstrate the start of the project
 
 ![Black Jack UML](partial-uml.png)
 	
