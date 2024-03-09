@@ -2,6 +2,7 @@ package com.skilldistillery.blackjack.app;
 
 import java.util.Scanner;
 
+import com.skilldistillery.blackjack.game.ConsoleEffect;
 import com.skilldistillery.blackjack.game.Dealer;
 import com.skilldistillery.blackjack.game.Player;
 
@@ -12,7 +13,14 @@ public class BlackjackApp {
 
 	public static void main(String[] args) {
 
+		System.out.println("Welcome to Blackjack!");
+
+		System.out.println("----------------------------------------------------------------------------");
+		System.out.println("- TODO - carefully check play logic, blackjacks and assignment instructions-");
+		System.out.println("----------------------------------------------------------------------------");
+
 		BlackjackApp app = new BlackjackApp();
+
 		app.startGame();
 	}
 
@@ -20,20 +28,22 @@ public class BlackjackApp {
 
 		Scanner keyboard = new Scanner(System.in);
 
-		System.out.println("Welcome to Blackjack!");
-
 		dealer.shuffleDeck();
 
 		String wantsToContinuePlaying = "y";
 
+		// -------------------------------------------------------
+		// Possible plan to load/save a deck for testing/competing
+		// -------------------------------------------------------
 		dealer.stackDeck("testDeck.txt"); // testing purposes
+		// -------------------------------------------------------
 
 		do {
 
 			player.clearHand();
 			dealer.clearHand();
 
-			// initial deal
+			// Initial deal
 
 			player.addCardToHand(dealer.dealCard(true)); // face up
 			dealer.addCardToHand(dealer.dealCard(false)); // face down
@@ -44,23 +54,58 @@ public class BlackjackApp {
 			dealer.showHand();
 			player.showHand();
 
-			// check for player blackjack
+			boolean hasInsurance = false;
+			boolean skipPlay = false;
 
-			if (player.getHandValue() == 21) {
-
-				System.out.println("Blackjack! You win!");
-
-			} else {
-
-				player.playTurn(dealer, keyboard);
-
-				dealer.placeCardsFaceUp();
-
-				// if player did not bust, dealer plays turn
-				if (player.getHandValue() <= 21) {
-					dealer.playTurn(dealer, keyboard);
+			// -------------------------------------------------------
+			// IF DEALER HAS ACE SHOWING, OFFER INSURANCE
+			// -------------------------------------------------------
+			if (dealer.isAceShowing()) {
+				System.out.print("\nWould you like to buy insurance? (y/N) ? ");
+				String wantsInsurance = keyboard.nextLine().trim();
+				if (wantsInsurance.equalsIgnoreCase("y")) {
+					System.out.println(ConsoleEffect.red + "\nInsurance purchased." + ConsoleEffect.reset);
+					hasInsurance = true;
+					if (dealer.getHandValue() == 21) {
+						System.out.println(ConsoleEffect.red + "\nDealer has blackjack." + ConsoleEffect.reset);
+						skipPlay = true;
+					}
+				} else {
+					if (dealer.getHandValue() == 21) {
+						System.out.println(ConsoleEffect.red + "\nDealer has blackjack." + ConsoleEffect.reset);
+						skipPlay = true;
+					}
 				}
 			}
+			// ------------------------------------------------------------
+			// NOT CERTAIN OF GAME INSURANCE RULES SO LEFT IT VERBOSE ABOVE
+			// ------------------------------------------------------------
+
+			if (!skipPlay) {
+
+				if (player.getHandValue() == 21) {
+
+					System.out.println(ConsoleEffect.red + "\nBlackjack! You win!" + ConsoleEffect.reset);
+
+					if (dealer.getHandValue() == 21) {
+						System.out.println(
+								ConsoleEffect.red + "\nDealer also has blackjack. Push!" + ConsoleEffect.reset);
+					}
+
+				} else {
+
+					player.playTurn(dealer, keyboard);
+
+					dealer.placeCardsFaceUp();
+
+					if (player.getHandValue() <= 21) {
+						dealer.playTurn(dealer, keyboard);
+					}
+				}
+
+			}
+
+			dealer.placeCardsFaceUp();
 
 			showGameResults();
 

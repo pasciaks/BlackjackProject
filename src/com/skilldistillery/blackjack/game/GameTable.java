@@ -2,6 +2,9 @@ package com.skilldistillery.blackjack.game;
 
 public class GameTable {
 
+	// This code was worked on during this 4th week.
+	// It was dabbled with off/on before the HW was assigned.
+
 	// Suits = "♠ ♦ ♣ ❤"
 
 	// ┌───┐
@@ -21,8 +24,6 @@ public class GameTable {
 
 	private String screenBgColor = ConsoleEffect.blackBg;
 	private String screenTextColor = ConsoleEffect.white;
-	private String bgColor = ConsoleEffect.whiteBg;
-	private String textColor = ConsoleEffect.blue;
 	private String reset = ConsoleEffect.reset;
 
 	String[][] screenXY = new String[rows][columns];
@@ -83,23 +84,19 @@ public class GameTable {
 
 	private void drawValueToCard(String[][] card, String value, String textColor, String backColor) {
 		String valueAsTwoCharString = String.format("%2s", value);
-
 		clearInsideOfCard(card, textColor, backColor);
-
 		if (valueAsTwoCharString.substring(0, 1).equals(" ")) {
 			card[1][1] = backColor + textColor + valueAsTwoCharString.substring(1, 2);
 		} else {
 			card[1][1] = backColor + textColor + valueAsTwoCharString.substring(0, 1);
 			card[1][2] = backColor + textColor + valueAsTwoCharString.substring(1, 2);
 		}
-
 		card[3][2] = backColor + textColor + valueAsTwoCharString.substring(0, 1);
 		card[3][3] = backColor + textColor + valueAsTwoCharString.substring(1, 2);
 	}
 
 	private String[][] buildCardWithColor(String bgColor, String textColor, int style) {
-
-		String cardFrame; // █ ▓ ▒ ░
+		String cardFrame;
 
 		switch (style) {
 		case 1:
@@ -118,16 +115,11 @@ public class GameTable {
 				index++;
 			}
 		}
-
-		// ♠️ ❤️ ♣️ ♦️ - Place the suit in appropriate color
-
-		// 2 3 4 5 6 7 8 9 10 J Q K A - Place the value at appropriate position
-
 		return card;
 	}
 
 	public void drawScreen() {
-		sleepFor(1000);
+		sleepFor(250);
 		for (int i = 0; i < rows; i++) {
 			String line = "";
 			for (int j = 0; j < columns; j++) {
@@ -136,10 +128,10 @@ public class GameTable {
 			System.out.println(line);
 		}
 		System.out.println(ConsoleEffect.reset);
-		sleepFor(1000);
+		sleepFor(250);
 	}
 
-	public void placeBoxOnScreen(int row, int column, String[][] box) {
+	private void placeBoxOnScreen(int row, int column, String[][] box) {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				setScreen(row + i, column + j, box[i][j]);
@@ -147,7 +139,7 @@ public class GameTable {
 		}
 	}
 
-	public void setScreen(int row, int column, String value) {
+	private void setScreen(int row, int column, String value) {
 		screenXY[row][column] = value;
 	}
 

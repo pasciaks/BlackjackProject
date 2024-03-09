@@ -39,6 +39,16 @@ public class Dealer extends Player {
 		this.deck.stackTheDeck(fileName);
 	}
 
+	public boolean isAceShowing() {
+		return this.playerHand.isAceShowing();
+	}
+
+	@Override
+	public void showHand() {
+		System.out.println(ConsoleEffect.cyan + "\nDealer hand:");
+		this.playerHand.showHand();
+	}
+
 	@Override
 	public void playTurn(Dealer dealer, Scanner keyboard) {
 

@@ -17,8 +17,15 @@
 #### Lessons Learned
     - Attention to detail, read and re-read requirements.
 	- Commit early, commit often, and push!
-	- Format code, keep it separated (Indented).
+	- Start with what you know.
 	
+#### Notes
+
+ Additional time could be put in to re factor some code to make it more DRY.
+ 
+ Appropriate comments have been added to source code so if time allows these additional modifications can be implemented.
+ 
+ Considering the ability to save a game, implement betting, etc. Saving a game would be a way to revisit the previous played sessions to witness and test the game play with specific regards to the soft/hard 17 auto play from the dealer, for example.
 
 #### Display enhancement for user experience.
 

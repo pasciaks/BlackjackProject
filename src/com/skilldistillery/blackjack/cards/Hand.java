@@ -36,4 +36,17 @@ public abstract class Hand {
 		this.gameTable.drawScreen();
 	}
 
+	public boolean isAceShowing() {
+		for (Card card : cardsInHand) {
+			if (card.getRank().toString().equals("ACE") && card.isFaceUp()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int countOfCardsInHand() {
+		return cardsInHand.size();
+	}
+
 }

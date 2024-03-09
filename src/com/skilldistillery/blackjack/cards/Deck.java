@@ -35,6 +35,22 @@ public class Deck {
 	// Future plan to load an ordered deck for testing
 	public void stackTheDeck(String fileName) {
 		this.cards = new ArrayList<>();
+		// Dealer gets black jack
+		this.cards.add(new Card(Rank.ACE, Suit.SPADES));
+		this.cards.add(new Card(Rank.KING, Suit.CLUBS));
+		this.cards.add(new Card(Rank.NINE, Suit.DIAMONDS));
+		this.cards.add(new Card(Rank.ACE, Suit.HEARTS));
+
+		// You get black jack
+		this.cards.add(new Card(Rank.ACE, Suit.SPADES));
+		this.cards.add(new Card(Rank.ACE, Suit.HEARTS));
+		this.cards.add(new Card(Rank.KING, Suit.CLUBS));
+		this.cards.add(new Card(Rank.NINE, Suit.DIAMONDS));
+		// double black jack
+		this.cards.add(new Card(Rank.ACE, Suit.SPADES));
+		this.cards.add(new Card(Rank.ACE, Suit.HEARTS));
+		this.cards.add(new Card(Rank.KING, Suit.CLUBS));
+		this.cards.add(new Card(Rank.JACK, Suit.DIAMONDS));
 		// nice example game
 		this.cards.add(new Card(Rank.SIX, Suit.CLUBS));
 		this.cards.add(new Card(Rank.ACE, Suit.CLUBS));
@@ -60,7 +76,8 @@ public class Deck {
 
 	}
 
-	// If deck is < DESIRED_CARDS_REMAINING, a new deck is added and shuffled
+	// If deck is < DESIRED_CARDS_REMAINING, a new deck is added
+	// This new deck is adding to the existing deck and entire deck is then shuffled
 	public Card dealCard(boolean isFaceUp) {
 		if (checkDeckSize() < DESIRED_CARDS_REMAINING) {
 			System.out.println("Adding cards to deck and reshuffling.");
@@ -71,8 +88,11 @@ public class Deck {
 			}
 			this.shuffle();
 		}
+		// Deal a card by removing the first card from the deck
 		Card card = this.cards.remove(0);
+		// Set the card to be face up or face down as needed
 		card.setFaceUp(isFaceUp);
+		// Return the card
 		return card;
 	}
 

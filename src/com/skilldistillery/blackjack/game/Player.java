@@ -24,6 +24,7 @@ public class Player {
 	}
 
 	public void showHand() {
+		System.out.println(ConsoleEffect.cyan + "\nYour hand:");
 		this.playerHand.showHand();
 	}
 
@@ -31,16 +32,16 @@ public class Player {
 
 		while (this.playerHand.getHandValue() < 21) {
 
-			System.out.print("\nWould you like to [hit] or [stay] ? ");
+			System.out.print("\nWould you like to [1][hit] or [2][stay] ? ");
 
 			String choice = keyboard.nextLine();
 
-			if (choice.equals("hit")) {
+			if (choice.equals("hit") || choice.equals("1")) {
 				this.addCardToHand(dealer.dealCard(true));
-			} else if (choice.equals("stay")) {
+			} else if (choice.equals("stay") || choice.equals("2")) {
 				break;
 			} else {
-				System.out.println("\nPlease enter 'hit' or 'stay'.");
+				System.out.println("\nPlease enter [1] or 'hit' or [2] or 'stay'.");
 			}
 
 			this.showHand();
