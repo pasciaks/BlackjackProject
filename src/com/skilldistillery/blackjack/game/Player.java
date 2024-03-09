@@ -32,7 +32,7 @@ public class Player {
 		this.playerHand.showHand();
 	}
 
-	public void playTurn(Dealer dealer, Scanner keyboard) {
+	public int playTurn(Dealer dealer, Scanner keyboard) {
 
 		while (this.playerHand.getHandValue() < 21) {
 
@@ -63,6 +63,8 @@ public class Player {
 			}
 
 		}
+
+		return this.playerHand.getHandValue();
 
 	}
 

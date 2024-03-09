@@ -58,7 +58,7 @@ public class Dealer extends Player {
 	}
 
 	@Override
-	public void playTurn(Dealer dealer, Scanner keyboard) {
+	public int playTurn(Dealer dealer, Scanner keyboard) {
 
 		this.showHand();
 		dealer.showDeck(); // if dealer is in debug mode, will show deck count
@@ -82,6 +82,8 @@ public class Dealer extends Player {
 			System.out.println("\nThe Dealer Has " + this.playerHand.getHandValue() + " ! ");
 
 		}
+
+		return this.playerHand.getHandValue();
 
 	}
 

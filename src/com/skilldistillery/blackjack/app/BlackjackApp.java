@@ -39,7 +39,7 @@ public class BlackjackApp {
 			player.clearHand();
 			dealer.clearHand();
 
-			dealer.showDeck();
+			dealer.showDeck(); // if dealer is in debug mode, will show deck count
 
 			// Initial deal
 
@@ -53,17 +53,14 @@ public class BlackjackApp {
 			player.showHand();
 
 			boolean skipPlay = false;
-
-			boolean playerHasBlackjack = false;
-			boolean dealerHasBlackjack = false;
-
+			boolean doesPlayerHaveBJ = false;
+			boolean doesDealerHaveBJ = false;
 			boolean doesPlayerHaveInsurance = false;
 
 			// ---------------------------------------------------------------
 			// IF DEALER HAS ACE SHOWING, OFFER INSURANCE
 			// ---------------------------------------------------------------
 			if (dealer.isAceShowing()) {
-				// Not sure of insurance rules, so not fully implemented
 				System.out.println(ConsoleEffect.red + "Dealer has an Ace showing.\n" + ConsoleEffect.reset);
 				String wantsInsurance = askYesOrNo(
 						ConsoleEffect.yellow + "Would you like to buy insurance ? (y/n) ? " + ConsoleEffect.reset,
@@ -81,15 +78,15 @@ public class BlackjackApp {
 			// ---------------------------------------------------------------
 
 			if (dealer.getHandValue() == 21) {
-				dealerHasBlackjack = true;
+				doesDealerHaveBJ = true;
 			}
 
 			if (player.getHandValue() == 21) {
 				System.out.println(ConsoleEffect.green + "\nYou have Blackjack!" + ConsoleEffect.reset);
 				skipPlay = true;
-				playerHasBlackjack = true;
+				doesPlayerHaveBJ = true;
 
-				if (dealerHasBlackjack) {
+				if (doesDealerHaveBJ) {
 					System.out.println(ConsoleEffect.red + "\nDealer also has blackjack." + ConsoleEffect.reset);
 					skipPlay = true;
 				}
@@ -97,20 +94,21 @@ public class BlackjackApp {
 
 			if (!skipPlay) {
 
+				int playerTotal = 0;
+
 				// Player's turn
+				playerTotal = player.playTurn(dealer, keyboard);
 
-				player.playTurn(dealer, keyboard);
-
-				dealer.placeCardsFaceUp();
-
-				if (player.getHandValue() <= 21) {
+				if (playerTotal <= 21) {
+					// Dealer's turn
+					dealer.placeCardsFaceUp();
 					dealer.playTurn(dealer, keyboard);
 				}
 			}
 
 			dealer.placeCardsFaceUp();
 
-			showGameResults(playerHasBlackjack, dealerHasBlackjack, doesPlayerHaveInsurance);
+			showGameResults(doesPlayerHaveBJ, doesDealerHaveBJ, doesPlayerHaveInsurance);
 
 			System.out.println(ConsoleEffect.reset);
 
@@ -136,8 +134,7 @@ public class BlackjackApp {
 		return choice;
 	}
 
-	private void showGameResults(boolean playerhasBlackjack, boolean dealerHasBlackjack,
-			boolean doesPlayerHaveInsurance) {
+	private void showGameResults(boolean doesPlayerHaveBJ, boolean doesDealerHaveBJ, boolean doesPlayerHaveInsurance) {
 
 		System.out.println("\nGame Results\n");
 
@@ -149,17 +146,17 @@ public class BlackjackApp {
 
 		// The following logic was left verbose for clarity
 
-		if (playerhasBlackjack && dealerHasBlackjack) {
+		if (doesPlayerHaveBJ && doesDealerHaveBJ) {
 			System.out.println(ConsoleEffect.yellow + "\nDouble Black Jack!\n");
 			return;
 		}
 
-		if (playerhasBlackjack) {
+		if (doesPlayerHaveBJ) {
 			System.out.println(ConsoleEffect.green + "\nPlayer has Black Jack!\n");
 			return;
 		}
 
-		if (dealerHasBlackjack) {
+		if (doesDealerHaveBJ) {
 			System.out.println(ConsoleEffect.red + "\nDealer has Black Jack!\n");
 			if (doesPlayerHaveInsurance) {
 				System.out.println(ConsoleEffect.green + "Good thing you had insurance!\n");
