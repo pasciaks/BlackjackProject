@@ -41,7 +41,7 @@ public class GameTable {
 				setScreen(i, j, screenBgColor + screenTextColor + " " + reset);
 			}
 		}
-		sleepFor(1000);
+		sleepFor(500);
 	}
 
 	public String[][] drawCardToScreen(String[][] card, int row, int column, String bgColor, String textColor,
@@ -127,7 +127,7 @@ public class GameTable {
 	}
 
 	public void drawScreen() {
-		sleepFor(500);
+		sleepFor(1000);
 		for (int i = 0; i < rows; i++) {
 			String line = "";
 			for (int j = 0; j < columns; j++) {
@@ -136,7 +136,7 @@ public class GameTable {
 			System.out.println(line);
 		}
 		System.out.println(ConsoleEffect.reset);
-		sleepFor(500);
+		sleepFor(1000);
 	}
 
 	public void placeBoxOnScreen(int row, int column, String[][] box) {
