@@ -25,6 +25,9 @@ public class TestingApp {
 		dealEntireDeck();
 
 		waitForEnter(keyboard);
+		dealStackedBlackJackDeck();
+
+		waitForEnter(keyboard);
 		dealStackedDeck();
 
 		System.out.println("\n\nTesting complete.");
@@ -45,7 +48,7 @@ public class TestingApp {
 
 		Dealer dealer = new Dealer();
 
-		dealer.setIDebugMode(true);
+		dealer.setInDebugMode(true);
 
 		System.out.println("-----------------------------------------------------------");
 		System.out.println("Deck count");
@@ -62,7 +65,7 @@ public class TestingApp {
 
 		Dealer dealer = new Dealer();
 
-		dealer.setIDebugMode(true);
+		dealer.setInDebugMode(true);
 
 		for (int i = 0; i < 52; i++) {
 			dealer.addCardToHand(dealer.dealCard(true));
@@ -70,31 +73,77 @@ public class TestingApp {
 
 	}
 
-	private void dealStackedDeck() {
+	private void dealStackedBlackJackDeck() {
 
 		Dealer dealer = new Dealer();
 
-		dealer.setIDebugMode(true);
+		dealer.setInDebugMode(true);
 
 		System.out.println("Dealer stacks the deck.");
 
 		dealer.stackDeck("testDeck.txt");
 
-		dealer.clearHand();
+		int originalDeckSize = dealer.checkDeckSize();
 
-		dealer.addCardToHand(dealer.dealCard(false));
+		System.out.println("Original deck size: " + originalDeckSize);
 
-		dealer.addCardToHand(dealer.dealCard(true));
+		int numberOfCardsToDeal = 2;
 
-		System.out.println("Show Dealer's hand:");
+		int currentHandIndex = 0;
 
-		dealer.showHand();
+		for (int i = 0; i < Math.floor(0 + (originalDeckSize / numberOfCardsToDeal)); i++) {
+			dealer.clearHand();
 
-		System.out.println("Place Dealer's Cards Face Up and Show Dealer's Hand:");
+			for (int j = 0; j < numberOfCardsToDeal; j++) {
+				dealer.addCardToHand(dealer.dealCard(j == 0 ? false : true));
+			}
 
-		dealer.placeCardsFaceUp();
+			System.out.println("Show Dealer's hand: " + ++currentHandIndex);
 
-		dealer.showHand();
+			dealer.showHand();
+
+			System.out.println("Place Dealer's Cards Face Up and Show Dealer's Hand:");
+
+			dealer.placeCardsFaceUp();
+
+			dealer.showHand();
+		}
+	}
+
+	private void dealStackedDeck() {
+
+		Dealer dealer = new Dealer();
+
+		dealer.setInDebugMode(true);
+
+		int originalDeckSize = dealer.checkDeckSize();
+
+		System.out.println("Original deck size: " + originalDeckSize);
+
+		boolean isFaceUp = true;
+		int numberOfCardsToDeal = (int) (2 + Math.floor(Math.random() * 5));
+		int currentHandIndex = 0;
+
+		for (int i = 0; i < Math.floor(0 + (originalDeckSize / numberOfCardsToDeal)); i++) {
+			dealer.clearHand();
+
+			for (int j = 0; j < numberOfCardsToDeal; j++) {
+				if (Math.random() < 0.5) {
+					isFaceUp = !isFaceUp;
+				}
+				dealer.addCardToHand(dealer.dealCard(isFaceUp));
+			}
+
+			System.out.println("Show Dealer's hand: " + ++currentHandIndex);
+
+			dealer.showHand();
+
+			System.out.println("Place Dealer's Cards Face Up and Show Dealer's Hand:");
+
+			dealer.placeCardsFaceUp();
+
+			dealer.showHand();
+		}
 	}
 
 }

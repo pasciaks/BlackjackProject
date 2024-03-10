@@ -26,7 +26,7 @@ public class Player {
 	}
 
 	public void showHand() {
-		System.out.println(ConsoleEffect.cyan + "Player hand:");
+		System.out.println(ConsoleEffect.cyan + "Player's hand:");
 		this.playerHand.showHand();
 	}
 

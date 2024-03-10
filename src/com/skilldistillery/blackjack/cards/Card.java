@@ -51,98 +51,98 @@ public class Card {
 
 	}
 
-	private String translateSuitToColor(String oldSuit) {
-		String newColor = "" + ConsoleEffect.blue;
-		switch (oldSuit) {
+	private String translateSuitToColor(String oldSuitAsString) {
+		String translatedSuitStringAsColorString = "" + ConsoleEffect.blue;
+		switch (oldSuitAsString) {
 		case "Spades":
 		case "Clubs":
-			newColor = ConsoleEffect.black;
+			translatedSuitStringAsColorString = ConsoleEffect.black;
 			break;
 		case "Diamonds":
 		case "Hearts":
-			newColor = ConsoleEffect.red;
+			translatedSuitStringAsColorString = ConsoleEffect.red;
 			break;
 		default:
 			break;
 		}
-		return newColor;
+		return translatedSuitStringAsColorString;
 	}
 
-	private String translateSuitToSymbol(String oldSuit) {
-		String newSuit = "" + oldSuit;
-		switch (oldSuit) {
-		case "Spades":
-			newSuit = "♠";
+	private String translateSuitToSymbol(String oldSuitAsString) {
+		String translatedSuitString = "" + oldSuitAsString;
+		switch (oldSuitAsString) {
+		case "Hearts":
+			translatedSuitString = "❤";
 			break;
-		case "Diamonds":
-			newSuit = "♦";
+		case "Spades":
+			translatedSuitString = "♠";
 			break;
 		case "Clubs":
-			newSuit = "♣";
+			translatedSuitString = "♣";
 			break;
-		case "Hearts":
-			newSuit = "❤";
+		case "Diamonds":
+			translatedSuitString = "♦";
 			break;
 		default:
 			break;
 		}
-		return newSuit;
+		return translatedSuitString;
 	}
 
 	private int translateIsFaceUpToCardType(boolean isFaceUp) {
 		return isFaceUp ? 1 : 0;
 	}
 
-	private String translateRank(String oldRank) {
+	private String translateRank(String oldRankAsString) {
 
 		// TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9),
 		// TEN(10), JACK(10), QUEEN(10), KING(10), ACE(11);
-		String newRank = "" + oldRank;
-		switch (oldRank) {
+		String translatedRankToShortString = "" + oldRankAsString;
+		switch (oldRankAsString) {
 		case "TWO":
-			newRank = "2";
+			translatedRankToShortString = "2";
 			break;
 		case "THREE":
-			newRank = "3";
+			translatedRankToShortString = "3";
 			break;
 		case "FOUR":
-			newRank = "4";
+			translatedRankToShortString = "4";
 			break;
 		case "FIVE":
-			newRank = "5";
+			translatedRankToShortString = "5";
 			break;
 		case "SIX":
-			newRank = "6";
+			translatedRankToShortString = "6";
 			break;
 		case "SEVEN":
-			newRank = "7";
+			translatedRankToShortString = "7";
 			break;
 		case "EIGHT":
-			newRank = "8";
+			translatedRankToShortString = "8";
 			break;
 		case "NINE":
-			newRank = "9";
+			translatedRankToShortString = "9";
 			break;
 		case "TEN":
-			newRank = "10";
+			translatedRankToShortString = "10";
 			break;
 		case "JACK":
-			newRank = "J";
+			translatedRankToShortString = "J";
 			break;
 		case "QUEEN":
-			newRank = "Q";
+			translatedRankToShortString = "Q";
 			break;
 		case "KING":
-			newRank = "K";
+			translatedRankToShortString = "K";
 			break;
 		case "ACE":
-			newRank = "A";
+			translatedRankToShortString = "A";
 			break;
 		default:
 			break;
 		}
 
-		return newRank;
+		return translatedRankToShortString;
 	}
 
 	public void showCard(int index, GameTable gameTable) {

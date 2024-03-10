@@ -29,7 +29,7 @@ public class Dealer extends Player {
 	}
 
 	// If isDebugMode - Card counting for debug purposes + more!
-	public void setIDebugMode(boolean isDebugMode) {
+	public void setInDebugMode(boolean isDebugMode) {
 		this.isDebugMode = isDebugMode;
 	}
 
@@ -41,6 +41,10 @@ public class Dealer extends Player {
 		}
 	}
 
+	public int checkDeckSize() {
+		return this.deck.checkDeckSize();
+	}
+
 	public Card dealCard(boolean isFaceUp) {
 		Card card = this.deck.dealCard(isFaceUp);
 		if (isDebugMode) {
@@ -49,7 +53,7 @@ public class Dealer extends Player {
 			} else {
 				System.out.println(ConsoleEffect.black + "Dealer deals a card face down");
 			}
-			System.out.println(ConsoleEffect.black + " " + this.deck.checkDeckSize() + " cards left in the deck."
+			System.out.println(ConsoleEffect.black + " " + this.checkDeckSize() + " cards left in the deck."
 					+ ConsoleEffect.reset);
 		}
 
@@ -62,7 +66,7 @@ public class Dealer extends Player {
 
 	@Override
 	public void showHand() {
-		System.out.println(ConsoleEffect.cyan + "Dealer hand:");
+		System.out.println(ConsoleEffect.cyan + "Dealer's hand:");
 		this.playerHand.showHand();
 	}
 
