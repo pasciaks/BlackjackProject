@@ -8,13 +8,9 @@ import com.skilldistillery.blackjack.game.ConsoleEffect;
 
 public class Deck {
 
-	private static final int DESIRED_CARDS_REMAINING = 1;
+	private int DESIRED_CARDS_REMAINING = 1;
 
-	List<Card> cards;
-
-	public Deck() {
-		this.cards = createDeck();
-	}
+	private List<Card> cards;
 
 	private List<Card> createDeck() {
 		List<Card> deck = new ArrayList<>();
@@ -24,6 +20,10 @@ public class Deck {
 			}
 		}
 		return deck;
+	}
+
+	public Deck() {
+		this.cards = createDeck();
 	}
 
 	public int checkDeckSize() {
@@ -110,7 +110,8 @@ public class Deck {
 	}
 
 	// If deck is < DESIRED_CARDS_REMAINING, a new deck is added
-	// This new deck is adding to the existing deck and entire deck is then shuffled
+	// This new deck is adding to the existing deck and entire deck
+	// is then shuffled
 	public Card dealCard(boolean isFaceUp) {
 		if (checkDeckSize() < DESIRED_CARDS_REMAINING) {
 			System.out.println("Adding cards to deck and reshuffling.");

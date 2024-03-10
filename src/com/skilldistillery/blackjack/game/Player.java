@@ -9,12 +9,10 @@ public class Player {
 
 	protected Hand playerHand = new BlackjackHand();
 
-	// add card to player's hand
 	public void addCardToHand(Card card) {
 		this.playerHand.addCard(card);
 	}
 
-	// clear player's hand
 	public void clearHand() {
 		this.playerHand.clear();
 	}

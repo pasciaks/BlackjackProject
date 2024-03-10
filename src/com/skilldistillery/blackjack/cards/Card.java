@@ -9,7 +9,6 @@ public class Card {
 
 	private Rank rank;
 	private Suit suit;
-
 	private boolean isFaceUp = false;
 
 	// The following are for enhanced display of cards
@@ -94,7 +93,6 @@ public class Card {
 		return isFaceUp ? 1 : 0;
 	}
 
-	// This is verbose and could be re factored in new iteration
 	private String translateRank(String oldRank) {
 
 		// TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9),

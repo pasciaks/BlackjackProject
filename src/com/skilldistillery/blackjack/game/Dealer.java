@@ -28,6 +28,12 @@ public class Dealer extends Player {
 		this.playerHand.placeCardsFaceUp();
 	}
 
+	// If isDebugMode - Card counting for debug purposes + more!
+	public void setIDebugMode(boolean isDebugMode) {
+		this.isDebugMode = isDebugMode;
+	}
+
+	// If isDebugMode - Card counting for debug purposes + more!
 	public void showDeck() {
 		// Card counting for debug purposes + more!
 		if (isDebugMode) {

@@ -9,6 +9,7 @@ import com.skilldistillery.blackjack.game.Player;
 public class BlackjackApp {
 
 	private Dealer dealer = new Dealer();
+	
 	private Player player = new Player();
 
 	public static void main(String[] args) {

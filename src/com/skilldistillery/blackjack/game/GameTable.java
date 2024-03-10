@@ -2,23 +2,6 @@ package com.skilldistillery.blackjack.game;
 
 public class GameTable {
 
-	// This code was worked on during this 4th week.
-	// It was completed before the HW was assigned.
-
-	// Suits = "♠ ♦ ♣ ❤"
-
-	// ┌───┐
-	// │░░░│
-	// │░░░│
-	// │░░░│
-	// └───┘
-
-	// ┌───┐
-	// │02 │
-	// │ ♣ │
-	// │ 02│
-	// └───┘
-
 	private int sleepTime = 500;
 	private int columns = 120;
 	private int rows = 7;
@@ -27,7 +10,7 @@ public class GameTable {
 	private String screenTextColor = ConsoleEffect.white;
 	private String reset = ConsoleEffect.reset;
 
-	String[][] screenXY = new String[rows][columns];
+	private String[][] screenXY = new String[rows][columns];
 
 	public void clearScreen() {
 		for (int i = 0; i < rows; i++) {
@@ -35,6 +18,18 @@ public class GameTable {
 				setScreen(i, j, screenBgColor + screenTextColor + " " + reset);
 			}
 		}
+		sleepFor(sleepTime);
+	}
+
+	public void drawScreen() {
+		for (int i = 0; i < rows; i++) {
+			String line = "";
+			for (int j = 0; j < columns; j++) {
+				line += screenXY[i][j];
+			}
+			System.out.println(line);
+		}
+		System.out.println(ConsoleEffect.reset);
 		sleepFor(sleepTime);
 	}
 
@@ -50,16 +45,27 @@ public class GameTable {
 		return card;
 	}
 
-	public void drawScreen() {
-		for (int i = 0; i < rows; i++) {
-			String line = "";
-			for (int j = 0; j < columns; j++) {
-				line += screenXY[i][j];
-			}
-			System.out.println(line);
+	private String[][] buildCardWithColor(String bgColor, String textColor, int style) {
+		String cardFrame;
+
+		switch (style) {
+		case 1:
+			cardFrame = "┌───┐│   ││   ││   │└───┘";
+			break;
+		default:
+			cardFrame = "┌───┐│░░░││░░░││░░░│└───┘";
+			break;
 		}
-		System.out.println(ConsoleEffect.reset);
-		sleepFor(sleepTime);
+
+		int index = 0;
+		String[][] card = new String[5][5];
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				card[i][j] = "" + bgColor + textColor + cardFrame.charAt(index);
+				index++;
+			}
+		}
+		return card;
 	}
 
 	private void drawSuitToCard(String[][] card, String suit, String textColor, String backColor) {
@@ -100,29 +106,6 @@ public class GameTable {
 		card[3][3] = backColor + textColor + valueAsTwoCharString.substring(1, 2);
 	}
 
-	private String[][] buildCardWithColor(String bgColor, String textColor, int style) {
-		String cardFrame;
-
-		switch (style) {
-		case 1:
-			cardFrame = "┌───┐│   ││   ││   │└───┘";
-			break;
-		default:
-			cardFrame = "┌───┐│░░░││░░░││░░░│└───┘";
-			break;
-		}
-
-		int index = 0;
-		String[][] card = new String[5][5];
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				card[i][j] = "" + bgColor + textColor + cardFrame.charAt(index);
-				index++;
-			}
-		}
-		return card;
-	}
-
 	private void placeBoxOnScreen(int row, int column, String[][] box) {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -142,5 +125,23 @@ public class GameTable {
 			e.printStackTrace();
 		}
 	}
+
+	// This code was worked on during this 4th week.
+
+	// It was completed before the HW was assigned.
+
+	// Suits = "♠ ♦ ♣ ❤"
+
+	// ┌───┐
+	// │░░░│
+	// │░░░│
+	// │░░░│
+	// └───┘
+
+	// ┌───┐
+	// │02 │
+	// │ ♣ │
+	// │ 02│
+	// └───┘
 
 }
